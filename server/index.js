@@ -15,12 +15,20 @@ app.use(cors({
     methods: ["GET", "POST" ,"DELETE" , "PUT"],
     credentials: true
 }));
-mongoose.connect('mongodb://localhost:27017/Classroom')
-.then(()=>{
-    console.log("Mongoose connected Successfully !!")
-}).catch(error => {
-    console.log("Mongoose connection error " , error)
-});
+// mongoose.connect('mongodb://localhost:27017/Classroom')
+// .then(()=>{
+//     console.log("Mongoose connected Successfully !!")
+// }).catch(error => {
+//     console.log("Mongoose connection error " , error)
+// });
+
+const connectDb = async()=>{
+    await mongoose.connect(`mongodb+srv://laxmiray013:syvk1WHBseps3xFm@cluster0.f1hrp.mongodb.net/?retryWrites=true&w=majority&appName=Cluster0`);
+    // mongodb://laxmiray013:syvk1WHBseps3xFm@<hostname>/?ssl=true&replicaSet=atlas-tuudm9-shard-0&authSource=admin&retryWrites=true&w=majority&appName=Cluster0
+    console.log(`this db is connected with ${mongoose.connection.host}`)
+  }
+  
+  connectDb();
 
 app.post('/createClassroom', async (req, res) => {
     const { name, startTime, endTime, days, color,assignedTeacher  } = req.body;
