@@ -10,11 +10,21 @@ const app = express();
 const PORT=3000;
 app.use(express.json());
 
-app.use(cors({
-    origin: ["http://localhost:5173" ,"http://localhost:3000"],
-    methods: ["GET", "POST" ,"DELETE" , "PUT"],
-    credentials: true
-}));
+if (process.env.NODE_ENV === 'production') {
+    app.use(express.static(path.join(__dirname, '..', 'client', 'dist')));
+    app.get('*', (req, res) => {
+        res.sendFile(path.resolve(__dirname, '..', 'client', 'dist', 'index.html'));
+    });
+} else {
+    app.get('/', (req, res) => {
+        res.send('API is running successfully');
+    });
+}
+
+
+app.use(cors());
+app.use(express.urlencoded({ extended: true }));
+app.use(express.json());
 // mongoose.connect('mongodb://localhost:27017/Classroom')
 // .then(()=>{
 //     console.log("Mongoose connected Successfully !!")
