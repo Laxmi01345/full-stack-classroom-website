@@ -11,7 +11,6 @@ const TeachDash = () => {
       <div className="flex-1 ml-64 p-4">
         <header className="bg-blue-400 text-white p-4 flex justify-between items-center">
          
-         
           <button
             className="bg-blue-600 text-white py-2 px-4 rounded hover:bg-blue-700"
             onClick="">
